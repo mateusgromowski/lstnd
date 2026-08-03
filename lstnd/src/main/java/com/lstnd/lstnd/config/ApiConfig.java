@@ -14,6 +14,6 @@ public class ApiConfig {
     @Bean
     public RestClient restClientAuth() {
         return RestClient.builder().baseUrl("https://accounts.spotify.com/api/token")
-                .defaultHeader("Content-Type: application/x-www-form-urlencoded").build();
+                .defaultHeader("Content-Type", "application/x-www-form-urlencoded").build();
     }
 }
