@@ -1,10 +1,13 @@
 package com.lstnd.lstnd.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lstnd.lstnd.DTO.AuthDTO;
+import com.lstnd.lstnd.model.Album;
 import com.lstnd.lstnd.service.SpotifyService;
 
 @RestController
@@ -14,5 +17,10 @@ public class SpotifyController {
 
     public SpotifyController(SpotifyService service) {
         this.service = service;
+    }
+
+    @GetMapping("/albuns")
+    public List<Album> findAlbumByName(@RequestParam String name) {
+        return service.findAlbumByName(name);
     }
 }
