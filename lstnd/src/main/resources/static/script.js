@@ -19,8 +19,12 @@ async function search(){
 
 function printJson(json){
     let container = document.getElementById("card");
-    container.innerHTML = json.map(
-        album =>`
+    container.textContent = "";
+    json.forEach(
+        album => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
             <div id="card"> 
                 <h2>${album.title}</h2>
                 <img src="${album.capeUrl}">   
@@ -28,5 +32,6 @@ function printJson(json){
                 <p>${album.releaseDate.substring(0, 4)}
             </div>
         `
-    ).join("");
+        container.appendChild(card);
+    });
 }
