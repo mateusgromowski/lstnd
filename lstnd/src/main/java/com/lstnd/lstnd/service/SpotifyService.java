@@ -47,8 +47,16 @@ public class SpotifyService {
 
     private List<Album> toAlbum(RequestDTO dto) {
         return dto.albums().items().stream()
-                .map(album -> new Album(album.id(), album.images().getFirst().capeUrl(),
-                        album.artists().getFirst().name(), album.title(), album.releaseDate()))
+                .map(album -> new Album(
+                album.id(), 
+                album.images()
+                .getFirst()
+                .capeUrl(),
+                album.artists()
+                .getFirst().name(), 
+                album.title(), 
+                album.releaseDate()
+                ))
                 .toList();
     }
 
