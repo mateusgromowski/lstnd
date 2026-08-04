@@ -11,8 +11,22 @@ async function search(){
             throw new Error("[ERROR] Response status: " + response.status);
         }
         const result = await response.json();
-        console.table(result);
+        printJson(result);
     } catch (error) {
         console.error(error.message);
     }
+}
+
+function printJson(json){
+    let container = document.getElementById("card");
+    container.innerHTML = json.map(
+        album =>`
+            <div id="card"> 
+                <h2>${album.title}</h2>
+                <img src="${album.capeUrl}">   
+                <p>${album.author}</p>
+                <p>${album.releaseDate.substring(0, 4)}
+            </div>
+        `
+    ).join("");
 }
