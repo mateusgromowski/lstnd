@@ -18,7 +18,7 @@ async function search(){
 }
 
 function printJson(json){
-    let container = document.getElementById("card");
+    let container = document.getElementById("container");
     container.textContent = "";
     json.forEach(
         album => {

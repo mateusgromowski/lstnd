@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+
+#card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px;
+    width: 220px;
+    text-align: center;
+    font-family: 'Bricolage Grotesque';
+}
+
+img {
+    width: 5.5em;
+    height: 5.5em;
+}
+
+#container{
+    display: grid;
+    grid-template-columns: repeat(3, 250px);
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
