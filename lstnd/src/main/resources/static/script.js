@@ -4,7 +4,7 @@ searchButton.addEventListener("click", search);
 async function search(){
     let inputBox = document.getElementById("search");
     let value = inputBox.value;
-    const url = `http://localhost:8080/spotify/albuns?name=${value}`;
+    const url = `/spotify/albuns?name=${value}`;
     try {
         const response = await fetch(url);
         if(!response.ok){
