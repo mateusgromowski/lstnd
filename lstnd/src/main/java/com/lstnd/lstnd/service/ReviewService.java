@@ -2,6 +2,7 @@ package com.lstnd.lstnd.service;
 
 import org.springframework.stereotype.Service;
 
+import com.lstnd.lstnd.DTO.NewReviewDTO;
 import com.lstnd.lstnd.model.Review;
 import com.lstnd.lstnd.repository.ReviewRepository;
 
@@ -15,5 +16,15 @@ public class ReviewService {
 
     public Review getReview(String spotifyId) {
         return repository.findBySpotifyId(spotifyId);
+    }
+
+    public void createReview(String spotifyId, NewReviewDTO dto) {
+        Review newReview = Review.builder()
+                .spotifyId(spotifyId)
+                .userName(dto.userName())
+                .review(dto.review())
+                .score(dto.score())
+                .build();
+        repository.save(newReview);
     }
 }
