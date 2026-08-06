@@ -11,21 +11,27 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lstnd.lstnd.exception.EmptyNameException;
 import com.lstnd.lstnd.model.Album;
 import com.lstnd.lstnd.model.Review;
+import com.lstnd.lstnd.service.ReviewService;
 import com.lstnd.lstnd.service.SpotifyService;
 
 @RestController
-@RequestMapping("/spotify")
+@RequestMapping("/albuns")
 public class SpotifyController {
-    SpotifyService service;
+    SpotifyService spotifyService;
+    ReviewService reviewService;
 
-    public SpotifyController(SpotifyService service) {
-        this.service = service;
+    public SpotifyController(SpotifyService spotifyService, ReviewService reviewService) {
+        this.spotifyService = spotifyService;
+        this.reviewService = reviewService;
     }
 
-    @GetMapping("/albuns")
+    @GetMapping("/list")
     public List<Album> findAlbumByName(@RequestParam String name) throws EmptyNameException {
-        return service.findAlbumByName(name);
+        return spotifyService.findAlbumByName(name);
     }
 
-    
+    @PostMapping("/list")
+    public Review getReview(@RequestParam String spotifyId) {
+        return reviewService.getReview(spotifyId);
+    }
 }
