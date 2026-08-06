@@ -1,12 +1,22 @@
 let searchButton = document.getElementById("searchButton");
+let inputBox = document.getElementById("search");
 searchButton.addEventListener("click", search);
+inputBox.addEventListener('keydown', (event) => {
+    if(event.key == "Enter"){
+        event.preventDefault();
+        search();
+    }
+});
 
 async function search(){
     let inputBox = document.getElementById("search");
     let value = inputBox.value;
-    const url = `/spotify/albuns?name=${value}`;
+    const url = `/spotify/albums?name=${value}`;
     try {
+        let mainText = document.getElementById("center");
+        mainText.textContent = "loading..."
         const response = await fetch(url);
+
         if(!response.ok){
             throw new Error("[ERROR] Response status: " + response.status);
         }
