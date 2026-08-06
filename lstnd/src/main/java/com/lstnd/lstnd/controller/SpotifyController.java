@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lstnd.lstnd.exception.EmptyNameException;
 import com.lstnd.lstnd.model.Album;
 import com.lstnd.lstnd.service.SpotifyService;
 
@@ -20,7 +21,7 @@ public class SpotifyController {
     }
 
     @GetMapping("/albuns")
-    public List<Album> findAlbumByName(@RequestParam String name) {
+    public List<Album> findAlbumByName(@RequestParam String name) throws EmptyNameException {
         return service.findAlbumByName(name);
     }
 }
