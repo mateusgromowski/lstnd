@@ -3,7 +3,7 @@ package com.lstnd.lstnd.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +20,11 @@ public class SpotifyController {
 
     public SpotifyController(SpotifyService service) {
         this.service = service;
+    }
+
+    @GetMapping("/albums/{id}")
+    public Album findAlbumById(@PathVariable String id) {
+        return service.findAlbumById(id);
     }
 
     @GetMapping("/albums")

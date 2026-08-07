@@ -49,7 +49,7 @@ function printJson(json){
             </div>
         `
         card.addEventListener("click", () => {
-            window.location.href = `/review?id=${album.id}`;
+            window.location.href = `/review.html?id=${album.id}`;
         });
         container.appendChild(card);
         
