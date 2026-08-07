@@ -3,7 +3,7 @@
 body {
     background-color: #22242a;
 }
-#card {
+.card {
     border: 1px solid #ccc;
     border-radius: 12px;
     padding: 16px;
@@ -13,7 +13,7 @@ body {
     font-family: 'Bricolage Grotesque';
 }
 
-#card img {
+.card img {
     width: 5.5em;
     height: 5.5em;
 }
@@ -55,8 +55,8 @@ header input {
     transition: 0.2s;
 }
 
-#card h2,
-#card p {
+.card h2,
+.card p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -93,4 +93,59 @@ header button img {
     justify-content: center;
     align-items: center;
     font-family: "Bricolage Grotesque";
+}
+
+.card{
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+
+    transition: transform .25s ease,
+                box-shadow .25s ease;
+}
+
+.card:hover{
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0,0,0,.35);
+    cursor:pointer;
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    transition:opacity .25s ease;
+}
+
+.card:hover .overlay{
+    opacity:1;
+}
+
+.open-btn{
+    background:white;
+    color:#22242a;
+
+    border:none;
+    border-radius:8px;
+
+    padding:12px 20px;
+
+    font-family:"Bricolage Grotesque";
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.open-btn:hover{
+    transform:scale(1.08);
 }

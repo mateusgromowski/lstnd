@@ -38,11 +38,14 @@ function printJson(json){
             const card = document.createElement("div");
             card.className = "card";
             card.innerHTML = `
-            <div id="card"> 
+            
                 <h2>${album.title}</h2>
                 <img src="${album.capeUrl}">   
                 <p>${album.author}</p>
                 <p>${album.releaseDate.substring(0, 4)}
+            
+            <div class="overlay">
+                <button class="open-btn">Ver avaliações</button>
             </div>
         `
         card.addEventListener("click", () => {
