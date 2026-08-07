@@ -1,5 +1,6 @@
 let searchButton = document.getElementById("searchButton");
 let inputBox = document.getElementById("search");
+
 searchButton.addEventListener("click", search);
 inputBox.addEventListener('keydown', (event) => {
     if(event.key == "Enter"){
@@ -44,6 +45,10 @@ function printJson(json){
                 <p>${album.releaseDate.substring(0, 4)}
             </div>
         `
+        card.addEventListener("click", () => {
+            window.location.href = `/review?id=${album.id}`;
+        });
         container.appendChild(card);
+        
     });
 }
