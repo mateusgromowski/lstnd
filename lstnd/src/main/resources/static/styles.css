@@ -149,3 +149,53 @@ header button img {
 .open-btn:hover{
     transform:scale(1.08);
 }
+
+/* =========================
+   INFORMAÇÕES DO ÁLBUM
+   ========================= */
+
+#albumInfo {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+
+    width: 90%;
+    max-width: 900px;
+
+    margin: 40px auto;
+    padding: 25px;
+
+    border: 1px solid #ccc;
+    border-radius: 20px;
+
+    font-family: "Bricolage Grotesque", sans-serif;
+    color: #999;
+}
+
+#albumInfo img {
+    width: 160px;
+    height: 160px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+
+    flex-shrink: 0;
+}
+
+#albumInfo h1 {
+    margin: 0 0 15px;
+
+    color: #ccc;
+
+    font-size: 36px;
+    font-weight: 600;
+}
+
+#albumInfo p {
+    margin: 5px 0;
+
+    color: #999;
+
+    font-size: 18px;
+}
