@@ -65,7 +65,6 @@ public class SpotifyService {
 
 	public Album findAlbumById(String id) {
 		String token = getToken().accessToken();
-		System.out.println(token);
 		IdRequestDTO dto = restClientRequest.get().uri("albums/{id}", id).header("Authorization", "Bearer " + token)
 				.retrieve()
 				.body(IdRequestDTO.class);
