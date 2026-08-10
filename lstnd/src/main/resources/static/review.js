@@ -1,7 +1,25 @@
 const albumId = new URLSearchParams(window.location.search).get("id");
-
+const sendBtn = document.getElementById("send");
+sendBtn.addEventListener("click", sendReview);
 showAlbum();
 
+async function sendReview(){
+    const username = document.getElementById("namebox").value;
+    const reviewBox = document.getElementById("review")
+    let review = reviewBox.value;
+    reviewBox.value = "";
+    const response = await fetch(`/reviews/${albumId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "user_name": username,
+            "review": review,
+            "score": 0
+        })
+    });  
+}
 async function showAlbum() {
     const url = `/spotify/albums/${albumId}`;
 
