@@ -2,6 +2,7 @@ const albumId = new URLSearchParams(window.location.search).get("id");
 const sendBtn = document.getElementById("send");
 sendBtn.addEventListener("click", sendReview);
 showAlbum();
+getReviews();
 
 async function sendReview(){
     const username = document.getElementById("namebox").value;
@@ -37,6 +38,10 @@ async function showAlbum() {
     } catch (error) {
         console.error(error.message);
     }
+}
+
+async function getReviews() {
+    
 }
 
 function printAlbum(album) {

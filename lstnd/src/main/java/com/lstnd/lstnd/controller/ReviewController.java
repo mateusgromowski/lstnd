@@ -1,5 +1,7 @@
 package com.lstnd.lstnd.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,11 @@ public class ReviewController {
     @GetMapping("/{spotifyId}")
     public Review getReview(@PathVariable String spotifyId) {
         return service.getReview(spotifyId);
+    }
+
+    @GetMapping("/list/{spotifyId}")
+    public List<Review> getAllReviews(@PathVariable String spotifyId) {
+        return service.getAllReviews(spotifyId);
     }
 
     @PostMapping("/{spotifyId}")

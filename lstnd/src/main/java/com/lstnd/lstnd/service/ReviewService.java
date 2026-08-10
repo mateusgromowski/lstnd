@@ -1,5 +1,7 @@
 package com.lstnd.lstnd.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.lstnd.lstnd.DTO.NewReviewDTO;
@@ -16,6 +18,10 @@ public class ReviewService {
 
     public Review getReview(String spotifyId) {
         return repository.findBySpotifyId(spotifyId);
+    }
+
+    public List<Review> getAllReviews(String spotifyId) {
+        return repository.findAllBySpotifyId(spotifyId);
     }
 
     public void createReview(String spotifyId, NewReviewDTO dto) {
