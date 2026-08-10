@@ -257,3 +257,65 @@ header button img {
 
     font-size: 18px;
 }
+
+.reviewInfo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.reviewInfo #namebox {
+    flex: 1;
+    height: 15px;
+    padding: 15px;
+    color: #999;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 16px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    outline: none;
+    transition: 0.2s;
+}
+
+.rating {
+    display: flex;
+    gap: 3px;
+}
+
+.star {
+    font-size: 30px;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.star:hover {
+    transform: scale(1.1);
+}
+
+.star.active {
+    color: #ffd700;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.review-header h2 {
+    margin: 0;
+    color: #ccc;
+}
+
+.review-stars {
+    color: #ffd700;
+    font-size: 22px;
+    letter-spacing: 2px;
+}
+
+.review-text {
+    color: #999;
+}
