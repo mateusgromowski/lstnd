@@ -45,7 +45,7 @@ function printJson(json){
                 <p>${album.releaseDate.substring(0, 4)}
             
             <div class="overlay">
-                <button class="open-btn">Ver avaliações</button>
+                <button class="open-btn">See reviews</button>
             </div>
         `
         card.addEventListener("click", () => {

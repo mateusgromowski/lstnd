@@ -55,6 +55,36 @@ header input {
     transition: 0.2s;
 }
 
+#namebox{
+    flex: 1;
+    height: 50px;
+    padding: 15px;
+    color: #999;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 16px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    outline: none;
+    transition: 0.2s;
+}
+
+#review {
+    flex: 1;
+    min-height: 100px;
+    padding: 15px;
+    color: #999;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 16px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    outline: none;
+    transition: 0.2s;
+    resize: none;
+}
+
+
 .card h2,
 .card p {
     white-space: nowrap;
@@ -80,6 +110,15 @@ header button {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+button {
+    background: transparent;
+    border: 1px solid #999;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    color: #999;
 }
 
 header button img {
@@ -158,6 +197,25 @@ header button img {
     display: flex;
     align-items: center;
     gap: 35px;
+
+    width: 90%;
+    max-width: 900px;
+
+    margin: 40px auto;
+    padding: 25px;
+
+    border: 1px solid #ccc;
+    border-radius: 20px;
+
+    font-family: "Bricolage Grotesque", sans-serif;
+    color: #999;
+}
+
+#reviewBox {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 15px;
 
     width: 90%;
     max-width: 900px;
