@@ -29,7 +29,7 @@ public class ReviewController {
 
     @GetMapping("/list/{spotifyId}")
     public List<Review> getAllReviews(@PathVariable String spotifyId) {
-        return service.getAllReviews(spotifyId);
+        return service.getAllReviews(spotifyId).reversed();
     }
 
     @PostMapping("/{spotifyId}")

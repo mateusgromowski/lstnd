@@ -19,7 +19,8 @@ async function sendReview(){
             "review": review,
             "score": 0
         })
-    });  
+    }); 
+    await getReviews();
 }
 async function showAlbum() {
     const url = `/spotify/albums/${albumId}`;
@@ -40,8 +41,37 @@ async function showAlbum() {
     }
 }
 
+function printReviews(json){
+    let reviews = document.getElementById("reviews");
+    json.forEach(
+        review => {
+            const reviewCard = document.createElement("div");
+            reviewCard.className = "reviewBox";
+            reviewCard.innerHTML = `
+                <div id="username">
+                    <h2>${review.userName}</h2>
+                </div>
+                <div id="review">
+                    ${review.review}
+                </div>
+            `
+
+            reviews.appendChild(reviewCard);
+    });
+}
 async function getReviews() {
-    
+    const url = `/reviews/list/${albumId}`;
+    document.getElementById("reviews").textContent = "";
+    try {
+        const response = await fetch(url);
+        if(!response.ok){
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const responseJson = await response.json();
+        printReviews(responseJson);
+    } catch (error) {
+        console.error(error.message);
+    }
 }
 
 function printAlbum(album) {
