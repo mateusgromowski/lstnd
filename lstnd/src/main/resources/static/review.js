@@ -60,6 +60,7 @@ async function sendReview(){
         })
     }); 
     await getReviews();
+    await showAlbum(); 
 }
 async function showAlbum() {
     const url = `/spotify/albums/${albumId}`;
@@ -77,6 +78,7 @@ async function showAlbum() {
 
 function printReviews(json) {
     const reviews = document.getElementById("reviews");
+    reviews.textContent = "";
 
     json.forEach(review => {
 
@@ -108,8 +110,8 @@ function printReviews(json) {
 }
 async function getReviews() {
     const url = `/reviews/list/${albumId}`;
-    document.getElementById("reviews").textContent = "";
     try {
+        
         const response = await fetch(url);
         if(!response.ok){
             throw new Error(`Response status: ${response.status}`);
@@ -123,7 +125,11 @@ async function getReviews() {
 
 function printAlbum(album) {
     const albumInfo = document.getElementById("albumInfo");
+    let stars = "";
 
+        for (let i = 1; i <= 5; i++) {
+            stars += i <= album.score ? "★" : "☆";
+        }
     albumInfo.innerHTML = `
         <img class="album-cover" src="${album.capeUrl}" alt="Capa do álbum">
         <div class="album-details">
@@ -131,6 +137,7 @@ function printAlbum(album) {
             <div class="album-meta">
                 <p>${album.author}</p>
                 <p>${album.releaseDate}</p>
+                <div class="review-stars">${stars}</div>
             </div>
         </div>
     `;
