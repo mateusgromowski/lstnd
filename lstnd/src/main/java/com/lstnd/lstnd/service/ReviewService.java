@@ -16,6 +16,10 @@ public class ReviewService {
         this.repository = repository;
     }
 
+    public Integer getAverageBySpotifyId(String spotifyId) {
+        return repository.getAverageScoreBySpotifyId(spotifyId);
+    }
+
     public Review getReview(String spotifyId) {
         return repository.findBySpotifyId(spotifyId);
     }

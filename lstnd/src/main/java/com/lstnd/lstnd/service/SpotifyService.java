@@ -12,6 +12,7 @@ import com.lstnd.lstnd.DTO.IdRequestDTO;
 import com.lstnd.lstnd.DTO.SearchRequestDTO;
 import com.lstnd.lstnd.exception.EmptyNameException;
 import com.lstnd.lstnd.model.Album;
+import com.lstnd.lstnd.repository.ReviewRepository;
 
 @Service
 public class SpotifyService {
@@ -19,15 +20,17 @@ public class SpotifyService {
 	private String clientSecret;
 	private RestClient restClientAuth;
 	private RestClient restClientRequest;
+	private ReviewRepository repository;
 
 	public SpotifyService(@Value("${spotify.client.id}") String clientId,
 			@Value("${spotify.client.secret}") String clientSecret,
 			@Qualifier("restClientAuth") RestClient restClientAuth,
-			@Qualifier("restClientRequest") RestClient restClientRequest) {
+			@Qualifier("restClientRequest") RestClient restClientRequest, ReviewRepository repository) {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.restClientAuth = restClientAuth;
 		this.restClientRequest = restClientRequest;
+		this.repository = repository;
 	}
 
 	public AuthDTO getToken() {
@@ -52,15 +55,23 @@ public class SpotifyService {
 
 	private List<Album> toAlbumList(SearchRequestDTO dto) {
 		return dto.albums().items().stream()
-				.map(album -> new Album(album.id(), album.images().getFirst().capeUrl(),
-						album.artists().getFirst().name(), album.title(), album.releaseDate()))
+				.map(album -> Album.builder()
+						.id(album.id())
+						.author(album.artists().getFirst().name())
+						.capeUrl(album.images().getFirst().capeUrl())
+						.title(album.title())
+						.releaseDate(album.releaseDate().substring(0, 4))
+						.score(repository.getAverageScoreBySpotifyId(album.id()))
+						.build())
 				.toList();
+
 	}
 
 	private Album toAlbum(IdRequestDTO dto) {
 		return Album.builder().id(dto.id()).author(dto.artists().getFirst().name())
 				.capeUrl(dto.images().getFirst().capeUrl()).title(dto.name())
-				.releaseDate(dto.releaseDate().substring(0, 4)).build();
+				.releaseDate(dto.releaseDate().substring(0, 4)).score(repository.getAverageScoreBySpotifyId(dto.id()))
+				.build();
 	}
 
 	public Album findAlbumById(String id) {
