@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lstnd.lstnd.DTO.NewReviewDTO;
@@ -27,8 +28,8 @@ public class ReviewController {
         return service.getReview(spotifyId);
     }
 
-    @GetMapping("/list/{spotifyId}")
-    public List<Review> getAllReviews(@PathVariable String spotifyId) {
+    @GetMapping
+    public List<Review> getAllReviews(@RequestParam String spotifyId) {
         return service.getAllReviews(spotifyId).reversed();
     }
 
