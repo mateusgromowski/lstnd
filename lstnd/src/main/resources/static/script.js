@@ -12,7 +12,7 @@ inputBox.addEventListener('keydown', (event) => {
 async function search(){
     let inputBox = document.getElementById("search");
     let value = inputBox.value;
-    const url = `/spotify/albums?name=${value}`;
+    const url = `/albums?name=${value}`;
     try {
         let mainText = document.getElementById("center");
         mainText.textContent = "loading..."

@@ -63,7 +63,7 @@ async function sendReview(){
     await showAlbum(); 
 }
 async function showAlbum() {
-    const url = `/spotify/albums/${albumId}`;
+    const url = `albums/${albumId}`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -109,7 +109,7 @@ function printReviews(json) {
     });
 }
 async function getReviews() {
-    const url = `/reviews/list/${albumId}`;
+    const url = `/reviews?spotifyId=${albumId}`;
     try {
         
         const response = await fetch(url);
