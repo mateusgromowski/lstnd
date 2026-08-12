@@ -28,8 +28,8 @@ Aplicação web para buscar álbuns musicais via API do Spotify e deixar avalia�
 ```
 src/main/java/com/lstnd/lstnd/
 ├── config/          # Configuração dos clientes REST (auth e requisições ao Spotify)
-├── controller/       # Endpoints REST (SpotifyController, ReviewController)
-├── service/           # Regras de negócio (SpotifyService, ReviewService)
+├── controller/       # Endpoints REST ( ReviewController, AlbumController)
+├── service/           # Regras de negócio (SpotifyService, ReviewService, AlbumService)
 ├── repository/       # Acesso a dados (ReviewRepository)
 ├── model/             # Entidades e modelos de domínio (Album, Review)
 ├── DTO/                # Objetos de transferência de dados
@@ -82,15 +82,15 @@ O console do H2 fica disponível em `http://localhost:8080/h2-console`, apontand
 
 | Método | Rota                     | Descrição                          |
 |--------|---------------------------|--------------------------------------|
-| GET    | `/spotify/albums?name=`   | Busca álbuns pelo nome               |
-| GET    | `/spotify/albums/{id}`    | Retorna detalhes de um álbum pelo ID |
+| GET    | `/albums?name=`           | Busca álbuns pelo nome               |
+| GET    | `/albums/{id}`    | Retorna detalhes de um álbum pelo ID |
 
 ### Reviews
 
 | Método | Rota                          | Descrição                                    |
 |--------|--------------------------------|-------------------------------------------------|
 | GET    | `/reviews/{spotifyId}`         | Retorna uma review de um álbum                  |
-| GET    | `/reviews/list/{spotifyId}`    | Lista todas as reviews de um álbum (mais recentes primeiro) |
+| GET    | `/reviews?spotifyId=`    | Lista todas as reviews de um álbum (mais recentes primeiro) |
 | POST   | `/reviews/{spotifyId}`         | Cria uma nova review para um álbum              |
 
 ## Observações
