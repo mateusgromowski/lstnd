@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lstnd.lstnd.DTO.NewReviewDTO;
-import com.lstnd.lstnd.exception.EmptyStringException;
 import com.lstnd.lstnd.model.Review;
 import com.lstnd.lstnd.service.ReviewService;
 
@@ -25,12 +24,12 @@ public class ReviewController {
     }
 
     @GetMapping
-    public List<Review> getAllReviews(@RequestParam String spotifyId) throws EmptyStringException {
+    public List<Review> getAllReviews(@RequestParam String spotifyId) throws IllegalArgumentException {
         return service.getAllReviews(spotifyId).reversed();
     }
 
     @PostMapping("/{spotifyId}")
-    public void createReview(@PathVariable String spotifyId, @RequestBody NewReviewDTO dto) throws EmptyStringException {
+    public void createReview(@PathVariable String spotifyId, @RequestBody NewReviewDTO dto) throws IllegalArgumentException {
         service.createReview(spotifyId, dto);
     }
 }
