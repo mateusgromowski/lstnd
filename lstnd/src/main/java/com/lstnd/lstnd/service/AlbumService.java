@@ -25,12 +25,20 @@ public class AlbumService {
         this.spotifyService = spotifyService;
     }
 
-    public Album findAlbumById(String id) {
+    public Album findAlbumById(String id) throws EmptyStringException {
+        validateId(id);
         String token = spotifyService.getToken().accessToken();
         IdRequestDTO dto = request.get().uri("albums/{id}", id).header("Authorization", "Bearer " + token)
                 .retrieve()
                 .body(IdRequestDTO.class);
         return toAlbum(dto);
+    }
+
+    private void validateId(String id) throws EmptyStringException {
+        if (id == null || id.isBlank()) {
+            throw new EmptyStringException("ID inválido.");
+        }
+        return;
     }
 
     private Album toAlbum(IdRequestDTO dto) {

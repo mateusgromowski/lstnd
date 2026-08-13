@@ -20,7 +20,7 @@ public class AlbumController {
     }
 
     @GetMapping("/albums/{spotifyId}")
-    private Album findAlbumById(@PathVariable String spotifyId) {
+    private Album findAlbumById(@PathVariable String spotifyId) throws EmptyStringException {
         return service.findAlbumById(spotifyId);
     }
 
