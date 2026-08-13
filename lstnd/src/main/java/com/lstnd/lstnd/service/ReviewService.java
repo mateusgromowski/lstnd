@@ -40,8 +40,8 @@ public class ReviewService {
         repository.save(newReview);
     }
 
-    private void validateScore(Integer score) throws IllegalArgumentException {
-        if (score == null) {
+    private void validateScore(int score) throws IllegalArgumentException {
+        if (score < 0 || score > 5) {
             throw new IllegalArgumentException("Nota inválida.");
         }
         return;

@@ -48,7 +48,7 @@ public class AlbumService {
     }
 
     public List<Album> findAlbumsByName(String name) throws IllegalArgumentException {
-        if (name.isEmpty() || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Empty album name.");
         }
         String uri = String.format("search?q=%s&type=album", name);
