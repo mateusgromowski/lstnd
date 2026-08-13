@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lstnd.lstnd.DTO.NewReviewDTO;
+import com.lstnd.lstnd.exception.EmptyStringException;
 import com.lstnd.lstnd.model.Review;
 import com.lstnd.lstnd.service.ReviewService;
 
@@ -24,12 +25,12 @@ public class ReviewController {
     }
 
     @GetMapping
-    public List<Review> getAllReviews(@RequestParam String spotifyId) {
+    public List<Review> getAllReviews(@RequestParam String spotifyId) throws EmptyStringException {
         return service.getAllReviews(spotifyId).reversed();
     }
 
     @PostMapping("/{spotifyId}")
-    public void createReview(@PathVariable String spotifyId, @RequestBody NewReviewDTO dto) {
+    public void createReview(@PathVariable String spotifyId, @RequestBody NewReviewDTO dto) throws EmptyStringException {
         service.createReview(spotifyId, dto);
     }
 }
