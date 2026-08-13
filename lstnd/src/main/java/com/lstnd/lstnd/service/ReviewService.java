@@ -20,10 +20,6 @@ public class ReviewService {
         return repository.getAverageScoreBySpotifyId(spotifyId);
     }
 
-    public Review getReview(String spotifyId) {
-        return repository.findBySpotifyId(spotifyId);
-    }
-
     public List<Review> getAllReviews(String spotifyId) {
         return repository.findAllBySpotifyId(spotifyId);
     }
@@ -37,4 +33,5 @@ public class ReviewService {
                 .build();
         repository.save(newReview);
     }
+
 }

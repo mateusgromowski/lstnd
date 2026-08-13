@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lstnd.lstnd.exception.EmptyNameException;
+import com.lstnd.lstnd.exception.EmptyStringException;
 import com.lstnd.lstnd.model.Album;
 import com.lstnd.lstnd.service.AlbumService;
 
@@ -25,7 +25,7 @@ public class AlbumController {
     }
 
     @GetMapping("/albums")
-    private List<Album> findAlbumsByName(@RequestParam String name) throws EmptyNameException {
+    private List<Album> findAlbumsByName(@RequestParam String name) throws EmptyStringException {
         return service.findAlbumsByName(name);
     }
 }

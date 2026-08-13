@@ -8,7 +8,7 @@ import org.springframework.web.client.RestClient;
 
 import com.lstnd.lstnd.DTO.IdRequestDTO;
 import com.lstnd.lstnd.DTO.SearchRequestDTO;
-import com.lstnd.lstnd.exception.EmptyNameException;
+import com.lstnd.lstnd.exception.EmptyStringException;
 import com.lstnd.lstnd.model.Album;
 import com.lstnd.lstnd.repository.ReviewRepository;
 
@@ -40,9 +40,9 @@ public class AlbumService {
                 .build();
     }
 
-    public List<Album> findAlbumsByName(String name) throws EmptyNameException {
+    public List<Album> findAlbumsByName(String name) throws EmptyStringException {
         if (name.isEmpty() || name.isBlank()) {
-            throw new EmptyNameException("Empty album name.");
+            throw new EmptyStringException("Empty album name.");
         }
         String uri = String.format("search?q=%s&type=album", name);
         String token = spotifyService.getToken().accessToken();
