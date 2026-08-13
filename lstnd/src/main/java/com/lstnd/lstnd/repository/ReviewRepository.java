@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import com.lstnd.lstnd.model.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    Review findBySpotifyId(String spotifyId);
 
     List<Review> findAllBySpotifyId(String spotifyId);
 

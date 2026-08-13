@@ -16,19 +16,21 @@ public class ReviewService {
         this.repository = repository;
     }
 
-    public Integer getAverageBySpotifyId(String spotifyId) {
+    public Integer getAverageBySpotifyId(String spotifyId) throws IllegalArgumentException {
+        validateId(spotifyId);
         return repository.getAverageScoreBySpotifyId(spotifyId);
     }
 
-    public Review getReview(String spotifyId) {
-        return repository.findBySpotifyId(spotifyId);
-    }
-
-    public List<Review> getAllReviews(String spotifyId) {
+    public List<Review> getAllReviews(String spotifyId) throws IllegalArgumentException {
+        validateId(spotifyId);
         return repository.findAllBySpotifyId(spotifyId);
     }
 
-    public void createReview(String spotifyId, NewReviewDTO dto) {
+    public void createReview(String spotifyId, NewReviewDTO dto) throws IllegalArgumentException {
+        validateId(spotifyId);
+        validateUserName(dto.userName());
+        validateReview(dto.review());
+        validateScore(dto.score());
         Review newReview = Review.builder()
                 .spotifyId(spotifyId)
                 .userName(dto.userName())
@@ -37,4 +39,33 @@ public class ReviewService {
                 .build();
         repository.save(newReview);
     }
+
+    private void validateScore(int score) throws IllegalArgumentException {
+        if (score < 0 || score > 5) {
+            throw new IllegalArgumentException("Nota inválida.");
+        }
+        return;
+    }
+
+    private void validateReview(String review) throws IllegalArgumentException {
+        if (review == null || review.isBlank()) {
+            throw new IllegalArgumentException("Review inválida.");
+        }
+        return;
+    }
+
+    private void validateUserName(String userName) throws IllegalArgumentException {
+        if (userName == null || userName.isBlank()) {
+            throw new IllegalArgumentException("Nome de usuário inválido.");
+        }
+        return;
+    }
+
+    private void validateId(String id) throws IllegalArgumentException {
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("ID inválido.");
+        }
+        return;
+    }
+
 }

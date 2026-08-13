@@ -8,7 +8,6 @@ import org.springframework.web.client.RestClient;
 
 import com.lstnd.lstnd.DTO.IdRequestDTO;
 import com.lstnd.lstnd.DTO.SearchRequestDTO;
-import com.lstnd.lstnd.exception.EmptyNameException;
 import com.lstnd.lstnd.model.Album;
 import com.lstnd.lstnd.repository.ReviewRepository;
 
@@ -25,12 +24,20 @@ public class AlbumService {
         this.spotifyService = spotifyService;
     }
 
-    public Album findAlbumById(String id) {
+    public Album findAlbumById(String id) throws IllegalArgumentException {
+        validateId(id);
         String token = spotifyService.getToken().accessToken();
         IdRequestDTO dto = request.get().uri("albums/{id}", id).header("Authorization", "Bearer " + token)
                 .retrieve()
                 .body(IdRequestDTO.class);
         return toAlbum(dto);
+    }
+
+    private void validateId(String id) throws IllegalArgumentException {
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("ID inválido.");
+        }
+        return;
     }
 
     private Album toAlbum(IdRequestDTO dto) {
@@ -40,9 +47,9 @@ public class AlbumService {
                 .build();
     }
 
-    public List<Album> findAlbumsByName(String name) throws EmptyNameException {
-        if (name.isEmpty() || name.isBlank()) {
-            throw new EmptyNameException("Empty album name.");
+    public List<Album> findAlbumsByName(String name) throws IllegalArgumentException {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Empty album name.");
         }
         String uri = String.format("search?q=%s&type=album", name);
         String token = spotifyService.getToken().accessToken();
