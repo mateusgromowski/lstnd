@@ -22,8 +22,6 @@ stars.forEach(star => {
 
     star.addEventListener("click", () => {
         score = Number(star.dataset.score);
-
-        console.log("Nota:", score);
     });
 
 });
@@ -76,6 +74,16 @@ async function showAlbum() {
     }
 }
 
+function getStars(score){
+    let stars = "";
+
+    for (let i = 1; i <= 5; i++) {
+        stars += i <= score ? "★" : "☆";
+    }
+
+    return stars; 
+}
+
 function printReviews(json) {
     const reviews = document.getElementById("reviews");
     reviews.textContent = "";
@@ -85,11 +93,8 @@ function printReviews(json) {
         const reviewCard = document.createElement("div");
         reviewCard.className = "reviewBox";
 
-        let stars = "";
-
-        for (let i = 1; i <= 5; i++) {
-            stars += i <= review.score ? "★" : "☆";
-        }
+        let stars = getStars(review.score);
+        
 
         reviewCard.innerHTML = `
             <div class="review-header">
@@ -125,11 +130,7 @@ async function getReviews() {
 
 function printAlbum(album) {
     const albumInfo = document.getElementById("albumInfo");
-    let stars = "";
-
-        for (let i = 1; i <= 5; i++) {
-            stars += i <= album.score ? "★" : "☆";
-        }
+    let stars = getStars(album.score);
     albumInfo.innerHTML = `
         <img class="album-cover" src="${album.capeUrl}" alt="Capa do álbum">
         <div class="album-details">
