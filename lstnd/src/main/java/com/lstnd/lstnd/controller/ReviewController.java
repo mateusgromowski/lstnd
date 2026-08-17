@@ -24,12 +24,12 @@ public class ReviewController {
     }
 
     @GetMapping
-    public List<Review> getAllReviews(@RequestParam String spotifyId) throws IllegalArgumentException {
+    public List<Review> getAllReviews(@RequestParam String spotifyId) {
         return service.getAllReviews(spotifyId).reversed();
     }
 
     @PostMapping("/{spotifyId}")
-    public void createReview(@PathVariable String spotifyId, @RequestBody NewReviewDTO dto) throws IllegalArgumentException {
+    public void createReview(@PathVariable String spotifyId, @RequestBody NewReviewDTO dto) {
         service.createReview(spotifyId, dto);
     }
 }
