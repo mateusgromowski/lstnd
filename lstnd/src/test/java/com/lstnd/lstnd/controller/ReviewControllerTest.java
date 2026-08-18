@@ -3,6 +3,7 @@ package com.lstnd.lstnd.controller;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -12,19 +13,25 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.lstnd.lstnd.DTO.NewReviewDTO;
 import com.lstnd.lstnd.model.Review;
 import com.lstnd.lstnd.service.ReviewService;
+
+import tools.jackson.databind.ObjectMapper;
 
 @WebMvcTest(ReviewController.class)
 public class ReviewControllerTest {
     @MockitoBean
-    ReviewService service;
+    private ReviewService service;
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper om;
 
     @Test
     void shouldReturn200Test() throws Exception {
@@ -41,5 +48,19 @@ public class ReviewControllerTest {
         mockMvc.perform(get("/reviews").param("spotifyId", "abc123")).andExpect(status().isOk())
                 .andExpect(content().json("[]"));
         verify(service).getAllReviews("abc123");
+    }
+
+    @Test
+    void shouldReturn200PostTest() throws Exception {
+        NewReviewDTO review = NewReviewDTO.builder()
+                .userName("Peter")
+                .review("Muito bom")
+                .score(5)
+                .build();
+        String json = om.writeValueAsString(review);
+        mockMvc.perform(post("/reviews/abc123").contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().isOk());
+
+        verify(service).createReview("abc123", review);
     }
 }
