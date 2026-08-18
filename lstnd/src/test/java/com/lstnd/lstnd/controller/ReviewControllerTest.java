@@ -3,6 +3,7 @@ package com.lstnd.lstnd.controller;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Collections;
@@ -31,6 +32,14 @@ public class ReviewControllerTest {
         Review review2 = Review.builder().id(2L).userName("Retep").review("Muito ruim").score(1).build();
         when(service.getAllReviews("abc123")).thenReturn(List.of(review1, review2));
         mockMvc.perform(get("/reviews").param("spotifyId", "abc123")).andExpect(status().isOk());
+        verify(service).getAllReviews("abc123");
+    }
+
+    @Test
+    void shouldReturn200AndEmptyListTest() throws Exception {
+        when(service.getAllReviews("abc123")).thenReturn(Collections.emptyList());
+        mockMvc.perform(get("/reviews").param("spotifyId", "abc123")).andExpect(status().isOk())
+                .andExpect(content().json("[]"));
         verify(service).getAllReviews("abc123");
     }
 }
