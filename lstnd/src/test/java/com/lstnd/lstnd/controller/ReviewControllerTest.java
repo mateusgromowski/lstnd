@@ -1,5 +1,8 @@
 package com.lstnd.lstnd.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -62,5 +65,19 @@ public class ReviewControllerTest {
                 .andExpect(status().isOk());
 
         verify(service).createReview("abc123", review);
+    }
+
+    @Test
+    void shouldReturn400PostTest() throws Exception {
+        NewReviewDTO review = NewReviewDTO.builder()
+                .userName("Peter")
+                .review("Muito bom")
+                .score(5)
+                .build();
+        doThrow(new IllegalArgumentException("ID inválido")).when(service).createReview(eq("abc123"),
+                any(NewReviewDTO.class));
+        String json = om.writeValueAsString(review);
+        mockMvc.perform(post("/reviews/abc123").contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().isBadRequest()).andExpect(content().string("ID inválido"));
     }
 }
