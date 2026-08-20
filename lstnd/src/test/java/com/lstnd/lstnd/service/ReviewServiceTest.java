@@ -1,6 +1,10 @@
 package com.lstnd.lstnd.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -65,5 +69,14 @@ public class ReviewServiceTest {
         assertEquals("muito bom", review.getReview());
         assertEquals(5, review.getScore());
         assertEquals("abc123", review.getSpotifyId());
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenIdIsNullTest() {
+
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> service.createReview(null, null));
+        assertEquals("ID inválido.", ex.getMessage());
+        verify(repository, never()).save(any());
     }
 }
