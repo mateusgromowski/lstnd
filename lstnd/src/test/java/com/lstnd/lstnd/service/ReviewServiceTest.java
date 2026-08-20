@@ -9,10 +9,13 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.lstnd.lstnd.DTO.NewReviewDTO;
 import com.lstnd.lstnd.model.Review;
 import com.lstnd.lstnd.repository.ReviewRepository;
 
@@ -20,9 +23,12 @@ import com.lstnd.lstnd.repository.ReviewRepository;
 public class ReviewServiceTest {
     @Mock
     ReviewRepository repository;
-
+    @Mock
+    SpotifyService spotifyService;
     @InjectMocks
     ReviewService service;
+    @Captor
+    ArgumentCaptor<Review> captor;
 
     @Test
     void shouldReturnAllReviewsTest() {
@@ -43,5 +49,21 @@ public class ReviewServiceTest {
         List<Review> reviews = repository.findAllBySpotifyId("abc123");
         assertEquals(Collections.emptyList(), reviews);
         verify(repository).findAllBySpotifyId("abc123");
+    }
+
+    @Test
+    void shouldCreateReviewTest() {
+        NewReviewDTO dto = NewReviewDTO.builder()
+                .userName("peter")
+                .review("muito bom")
+                .score(5)
+                .build();
+        service.createReview("abc123", dto);
+        verify(repository).save(captor.capture());
+        Review review = captor.getValue();
+        assertEquals("peter", review.getUserName());
+        assertEquals("muito bom", review.getReview());
+        assertEquals(5, review.getScore());
+        assertEquals("abc123", review.getSpotifyId());
     }
 }
