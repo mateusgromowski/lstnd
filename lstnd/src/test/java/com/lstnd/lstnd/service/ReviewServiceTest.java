@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,14 @@ public class ReviewServiceTest {
         assertEquals(2, serviceReviews.size());
         assertEquals(reviews.get(0), serviceReviews.get(0));
         assertEquals(reviews.get(1), serviceReviews.get(1));
+        verify(repository).findAllBySpotifyId("abc123");
+    }
+
+    @Test
+    void shouldReturnEmptyListTest() {
+        when(repository.findAllBySpotifyId("abc123")).thenReturn(Collections.emptyList());
+        List<Review> reviews = repository.findAllBySpotifyId("abc123");
+        assertEquals(Collections.emptyList(), reviews);
         verify(repository).findAllBySpotifyId("abc123");
     }
 }
