@@ -51,7 +51,7 @@ public class AlbumService {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Empty album name.");
         }
-        String uri = String.format("search?q=%s&type=album", name);
+        String uri = String.format("search?q=%s&type=album&limit=9", name);
         String token = spotifyService.getToken().accessToken();
         SearchRequestDTO dto = request.get().uri(uri).header("Authorization", "Bearer " + token).retrieve()
                 .body(SearchRequestDTO.class);
