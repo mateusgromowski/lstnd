@@ -2,6 +2,8 @@ package com.lstnd.lstnd.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Builder;
+@Builder
 public record NewReviewDTO(
         @JsonProperty("user_name") String userName,
         String review,
