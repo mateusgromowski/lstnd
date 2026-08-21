@@ -130,4 +130,12 @@ public class ReviewServiceTest {
         verify(repository, never()).save(any());
     }
 
+    @Test
+    void shouldReturnFourTest() {
+        when(service.getAverageBySpotifyId("abc")).thenReturn(4);
+        int score = service.getAverageBySpotifyId("abc");
+        assertEquals(4, score);
+        verify(repository).getAverageScoreBySpotifyId("abc");
+    }
+
 }
