@@ -3,7 +3,6 @@ package com.lstnd.lstnd.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -73,10 +72,62 @@ public class ReviewServiceTest {
 
     @Test
     void shouldThrowIllegalArgumentExceptionWhenIdIsNullTest() {
-
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
                 () -> service.createReview(null, null));
         assertEquals("ID inválido.", ex.getMessage());
         verify(repository, never()).save(any());
     }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenUserNameIsNullTest() {
+        NewReviewDTO dto = NewReviewDTO.builder()
+                .userName(null)
+                .review("muito bom")
+                .score(5)
+                .build();
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> service.createReview("abc123", dto));
+        assertEquals("Nome de usuário inválido.", ex.getMessage());
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenReviewIsNullTest() {
+        NewReviewDTO dto = NewReviewDTO.builder()
+                .userName("retep")
+                .review(null)
+                .score(5)
+                .build();
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> service.createReview("abc123", dto));
+        assertEquals("Review inválida.", ex.getMessage());
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenScoreIsLessThanZeroTest() {
+        NewReviewDTO dto = NewReviewDTO.builder()
+                .userName("retep")
+                .review("muito bom")
+                .score(-1)
+                .build();
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> service.createReview("abc123", dto));
+        assertEquals("Nota inválida.", ex.getMessage());
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenScoreIsHigherThanFiveTest() {
+        NewReviewDTO dto = NewReviewDTO.builder()
+                .userName("retep")
+                .review("muito bom")
+                .score(6)
+                .build();
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> service.createReview("abc123", dto));
+        assertEquals("Nota inválida.", ex.getMessage());
+        verify(repository, never()).save(any());
+    }
+
 }
